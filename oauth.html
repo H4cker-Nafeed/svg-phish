@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Sign In</title>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #4285f4;
+      font-family: Roboto, Arial, sans-serif;
+    }
+
+    .card {
+      width: 380px;
+      background: white;
+      border-radius: 8px;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 18px;
+      color: #3c4043;
+      margin-top: 20px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #5f6368;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Google Logo -->
+    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
+         width="92" height="30" alt="Google">
+
+    <div class="title">Sign in</div>
+    <div class="subtitle">to continue to Workspace</div>
+
+    <!-- REAL Google Sign-in Button -->
+    <div id="g_id_onload"
+         data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
+         data-callback="onSignIn">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="signin_with"
+         data-shape="rect"
+         data-logo_alignment="left">
+    </div>
+
+  </div>
+
+  <script>
+    // Called after login
+    function onSignIn(response) {
+      const token = response.credential;
+      console.log("Google ID Token:", token);
+
+      // TODO: Send token to your backend for verification
+      // Example POST:
+      // fetch("/auth/google", { method: "POST", body: JSON.stringify({ token }) })
+    }
+
+    google.accounts.id.initialize({
+      client_id: "561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com",
+      callback: onSignIn
+    });
+
+    google.accounts.id.prompt();
+  </script>
+
+</body>
+</html>
